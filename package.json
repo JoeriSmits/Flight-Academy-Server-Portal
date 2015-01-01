@@ -1,0 +1,21 @@
+{
+  "name": "Flight-Academy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Flight-Academy is an app developed to maintain the server",
+  "scripts": {
+    "start": "node server/bin/www"
+  },
+  "main": "server/bin/www",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "express": "^4.9.7",
+    "express-session": "^1.9.3",
+    "fs": "0.0.2",
+    "jade": "^1.8.2",
+    "path": "^0.4.9"
+  },
+  "devDependencies": {},
+  "author": "Joeri Smits",
+  "license": "ISC"
+}

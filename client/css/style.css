@@ -1,0 +1,22 @@
+body {
+    background: url("../images/background.jpg");
+}
+.container {
+    position: relative;
+    top: 100px;
+}
+
+.jumbotron {
+    box-shadow: 3px 3px 3px #a3a3a3;
+}
+
+h2 {
+    margin: 0 0 30px 0;
+    color: #0a4fa4;
+}
+
+.footer {
+    margin-bottom: 30px;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none; }
