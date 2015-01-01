@@ -6,6 +6,6 @@
 
 var http = require('../../app'); //Require our app
 
-var server = http.listen(process.env.PORT || 3000, function () {
+var server = http.listen(process.env.PORT || 3001, function () {
     console.log('Express server listening on port ' + server.address().port);
 });
