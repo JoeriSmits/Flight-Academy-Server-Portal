@@ -16,6 +16,35 @@ var session = require("express-session");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+// SocketIO
+io.on('connection', function (socket) {
+    /**
+     * Making a real-time log file update system.
+     * @type {string}
+     */
+    var filePath = "../dummy.txt";
+    fs.readFile(filePath, "utf8", function (err, data) {
+        if (err) {
+            throw err;
+        }
+        var oldData = data;
+
+        setInterval(function () {
+            fs.readFile(filePath, "utf8", function (err, data) {
+                if (err) {
+                    throw err;
+                } else if (oldData !== data) {
+                    socket.emit("logData", data);
+                }
+            });
+        }, 1000);
+        socket.emit("logData", data);
+    });
+});
+
 // Using directory client-side as client directory.
 app.use(express.static(path.join(__dirname, '/client')));
 
@@ -42,4 +71,4 @@ app.all('*', function (req, res) {
     });
 });
 
-module.exports = app;
+module.exports = http;

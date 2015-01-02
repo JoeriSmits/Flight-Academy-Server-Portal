@@ -6,9 +6,6 @@ var express = require("express");
 var router = express.Router();
 var controller = require("../controllers/portalController");
 
-router.route("/portal/log")
-    .get(checkAuthentication, controller.getLogFile);
-
 // Check if a session with VID and password exist.
 function checkAuthentication(req, res, next) {
     if (req.session.isLoggedIn) {

@@ -9,6 +9,36 @@ var app = angular.module("FlightAcademy", [])
         $rootScope.currentYear = date.getFullYear();
     });
 
+app.factory('socketIO', function ($rootScope) {
+    var socket = io();
+    socket.on("connect", function () {
+        console.log("connected", socket.io.engine.id);
+    });
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            });
+        },
+        id: function () {
+            return socket.io.engine.id;
+        }
+    };
+});
+
 app.controller("loginController", function ($scope, $http) {
     "use strict";
 
@@ -39,7 +69,7 @@ app.controller("loginController", function ($scope, $http) {
     }
 });
 
-app.controller("portalController", function ($scope, $http) {
+app.controller("portalController", function ($scope, $http, socketIO) {
     "use strict";
 
     // Log out button.
@@ -51,9 +81,13 @@ app.controller("portalController", function ($scope, $http) {
     /**
      * Gets information from the server about the log data of the server.
      */
-    $http.get("/portal/log")
-        .success(function (data) {
-            var newData = data.logData.replace(/\n/g, "<br />");
-            document.getElementById("logData").innerHTML = newData;
-        });
+    socketIO.on("logData", function (data) {
+        // Injecting the data into the HTML file
+        var newData = data.replace(/\n/g, "<br />");
+        document.getElementById("logData").innerHTML = newData;
+
+        // Scrolling to the bottom of the panel
+        var logDataPanel = document.getElementsByClassName("logData");
+        logDataPanel[0].scrollTop = logDataPanel[0].scrollHeight;
+    });
 });

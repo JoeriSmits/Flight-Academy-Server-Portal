@@ -10,14 +10,3 @@ exports.getPortal = function (req, res) {
     // Render the correct HTML file
     res.sendFile(path.resolve() + "/client/portal.html");
 };
-
-exports.getLogFile = function (req, res) {
-    fs.readFile("dummy.txt", "utf8", function (err, data) {
-        if (err) {
-            throw err;
-        }
-        res.send({
-            logData: data
-        })
-    })
-};
