@@ -25,7 +25,7 @@ io.on('connection', function (socket) {
      * Making a real-time log file update system.
      * @type {string}
      */
-    var filePath = "../dummy.txt";
+    var filePath = "../flight-academy/unix/log.txt";
     fs.readFile(filePath, "utf8", function (err, data) {
         if (err) {
             throw err;
@@ -38,6 +38,7 @@ io.on('connection', function (socket) {
                     throw err;
                 } else if (oldData !== data) {
                     socket.emit("logData", data);
+                    oldData = data;
                 }
             });
         }, 1000);
