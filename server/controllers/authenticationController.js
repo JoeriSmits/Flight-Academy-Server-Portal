@@ -50,3 +50,48 @@ exports.loginProcess = function (req, res) {
 exports.logOut = function (req) {
     req.session.destroy();
 };
+
+// Register a new user on the server
+exports.register = function (req, res) {
+    /*
+     Req.body.job : 1 = New user is a pilot
+     Has to changed to 4 because of the server structure
+     Req.body.job : 2 = New user is a trainer
+     Has to be changed to 12 because of the server structure
+     */
+    var job,
+        fs = require("fs"),
+        filePath = "../flight-academy/unix/cert.txt",
+        dataToAppend;
+
+    if (req.body.job == 1) {
+        job = 4;
+    } else if (req.body.job == 2) {
+        job = 12;
+    }
+
+    dataToAppend = "\n;" + req.body.name + "\n" + req.body.VID + " " + req.body.password + " " + job;
+
+    fs.readFile(filePath, function (err, data) {
+        if (err) throw err;
+        var newData = data.toString();
+        // Checking if the VID already exists in the cert.txt file
+        if(newData.indexOf(req.body.VID) < 0){
+            fs.appendFile(filePath, dataToAppend, function (err) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.send({
+                        error: false,
+                        message: req.body.name + " is successfully added to the server"
+                    });
+                }
+            });
+        } else {
+            res.send({
+                error: true,
+                message: req.body.VID + " does already exist on this server. Registration process has ended"
+            })
+        }
+    });
+};

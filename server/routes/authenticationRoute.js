@@ -10,6 +10,8 @@ var controllerPortal = require("../controllers/portalController");
 router.route("/login")
     .post(controllerAuth.loginProcess);
 
+router.post("/portal/register", checkAuthentication, controllerAuth.register);
+
 router.get("/portal", checkAuthentication, controllerPortal.getPortal);
 
 // Check if a session with VID and password exist.

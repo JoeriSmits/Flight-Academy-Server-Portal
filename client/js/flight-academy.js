@@ -90,4 +90,36 @@ app.controller("portalController", function ($scope, $http, socketIO) {
         var logDataPanel = document.getElementsByClassName("logData");
         logDataPanel[0].scrollTop = logDataPanel[0].scrollHeight;
     });
+
+    /**
+     * Register a new user to the server
+     * @param name
+     * @param VID
+     * @param password
+     * @param job
+     */
+    $scope.register = function (name, VID, password, job) {
+        var registerData = {
+            name: name,
+            VID: VID,
+            password: password,
+            job: job
+        };
+
+        $http.post("/portal/register", registerData)
+            .success(function (data) {
+                $scope.registerMessage = {
+                    error: data.error,
+                    message: data.message
+                };
+                // Empty fields if the user is successfully added
+                if (!data.error) {
+                    var inputs = document.getElementsByClassName("form-control"),
+                        i;
+                    for (i = 0; i < inputs.length - 1; i = i + 1) {
+                        inputs[i].value = null;
+                    }
+                }
+            })
+    }
 });
