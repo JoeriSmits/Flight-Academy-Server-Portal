@@ -4,12 +4,12 @@
 
 var registeredUsers = [
     {
-        VID: "1",
-        password: "1"
+        VID: "161477",
+        password: "HDM1965"
     },
     {
-        VID: "2",
-        password: "2"
+        VID: "436859",
+        password: "Vuurtoren1"
     }
 ];
 
