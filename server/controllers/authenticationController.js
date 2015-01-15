@@ -70,7 +70,7 @@ exports.register = function (req, res) {
         job = 12;
     }
 
-    dataToAppend = "\n;" + req.body.name + "\n" + req.body.VID + " " + req.body.password + " " + job;
+    dataToAppend = req.body.name + "\n" + req.body.VID + " " + req.body.password + " " + job;
 
     fs.readFile(filePath, function (err, data) {
         if (err) throw err;
