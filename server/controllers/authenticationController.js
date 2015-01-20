@@ -72,26 +72,33 @@ exports.register = function (req, res) {
 
     dataToAppend = req.body.name + "\n" + req.body.VID + " " + req.body.password + " " + job;
 
-    fs.readFile(filePath, function (err, data) {
-        if (err) throw err;
-        var newData = data.toString();
-        // Checking if the VID already exists in the cert.txt file
-        if(newData.indexOf(req.body.VID) < 0){
-            fs.appendFile(filePath, dataToAppend, function (err) {
-                if (err) {
-                    res.send(err);
-                } else {
-                    res.send({
-                        error: false,
-                        message: req.body.name + " is successfully added to the server"
-                    });
-                }
-            });
-        } else {
-            res.send({
-                error: true,
-                message: req.body.VID + " does already exist on this server. Registration process has ended"
-            })
-        }
-    });
+    if (req.body.name !== undefined && req.body.VID !== undefined && req.body.password !== undefined) {
+        fs.readFile(filePath, function (err, data) {
+            if (err) throw err;
+            var newData = data.toString();
+            // Checking if the VID already exists in the cert.txt file
+            if (newData.indexOf(req.body.VID) < 0) {
+                fs.appendFile(filePath, dataToAppend, function (err) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        res.send({
+                            error: false,
+                            message: req.body.name + " is successfully added to the server"
+                        });
+                    }
+                });
+            } else {
+                res.send({
+                    error: true,
+                    message: req.body.VID + " does already exist on this server. Registration process has ended"
+                });
+            }
+        });
+    } else {
+        res.send({
+            error: true,
+            message: "A field cannot be empty"
+        });
+    }
 };
