@@ -3,11 +3,13 @@ body {
 }
 .container {
     position: relative;
-    top: 100px;
+    top: 150px;
 }
 
 .jumbotron {
-    box-shadow: 3px 3px 3px #a3a3a3;
+    box-shadow: 3px 3px 7px #737373;
+    border: 3px solid #083f7b;
+    margin: 0 0 15px 0;
 }
 
 h2 {
@@ -25,4 +27,11 @@ h2 {
     overflow-y: scroll;
 }
 
+.logoRow {
+    position: absolute;
+    top: -115px;
+    width: 100%;
+    z-index: 1000;
+    overflow: hidden;
+}
 [ng\:cloak], [ng-cloak], .ng-cloak { display: none; }

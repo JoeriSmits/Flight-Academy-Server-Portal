@@ -8,6 +8,11 @@
 </head>
 <body ng-controller="portalController">
 <div class="container">
+    <div class="logoRow">
+        <div class="col-lg-12 text-center">
+            <img src="images/faLogo.png" align="FA Logo" draggable="false">
+        </div>
+    </div>
     <div class="jumbotron">
         <div class="row">
             <div class="col-lg-11">
@@ -33,8 +38,22 @@
             </div>
             <div class="col-lg-4">
                 <div class="well">
-                    <p>Register new pilots or trainers</p>
-                    <div ng-cloak ng-show="registerMessage" ng-class="{ 'alert alert-danger': registerMessage.error, 'alert alert-success': !registerMessage.error }" role="alert">{{registerMessage.message}}</div>
+                    <p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Server commands</p>
+
+                    <div class="text-center">
+                        <button class="btn btn-danger" ng-click="reboot()">Reboot server</button>
+                        <button class="btn btn-warning" ng-click="clearLog()">Clear server log</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="well">
+                    <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Register new users</p>
+
+                    <div ng-cloak ng-show="registerMessage"
+                         ng-class="{ 'alert alert-danger': registerMessage.error, 'alert alert-success': !registerMessage.error }"
+                         role="alert">{{registerMessage.message}}
+                    </div>
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Full name</label>
@@ -72,7 +91,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
-                                <button type="submit" ng-click="register(name, VID, password, job)" class="btn btn-default">Register
+                                <button type="submit" ng-click="register(name, VID, password, job)"
+                                        class="btn btn-default">Register
                                 </button>
                             </div>
                         </div>

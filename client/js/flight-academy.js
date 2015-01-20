@@ -121,5 +121,13 @@ app.controller("portalController", function ($scope, $http, socketIO) {
                     }
                 }
             })
+    };
+
+    $scope.reboot = function () {
+        alert("Under development");
+    };
+
+    $scope.clearLog = function () {
+        alert("Under development");
     }
 });
