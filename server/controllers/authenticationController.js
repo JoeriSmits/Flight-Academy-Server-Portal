@@ -10,6 +10,10 @@ var registeredUsers = [
     {
         VID: "436859",
         password: "Vuurtoren1"
+    },
+    {
+        VID: "184862",
+        password: "YRLRBJ"
     }
 ];
 
