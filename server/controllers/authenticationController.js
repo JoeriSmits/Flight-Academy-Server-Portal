@@ -74,7 +74,7 @@ exports.register = function (req, res) {
         job = 12;
     }
 
-    dataToAppend = ";" + req.body.name + "\n" + req.body.VID + " " + req.body.password + " " + job;
+    dataToAppend = "\n" + ";" + req.body.name + "\n" + req.body.VID + " " + req.body.password + " " + job;
 
     if (req.body.name !== undefined && req.body.VID !== undefined && req.body.password !== undefined) {
         fs.readFile(filePath, function (err, data) {
